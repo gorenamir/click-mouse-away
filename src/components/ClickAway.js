@@ -38,6 +38,11 @@ class ClickAway extends HTMLElement {
 }
 
 ClickAway.template.innerHTML = `
+<style>
+.click-away {
+    display: inline-block;
+}
+</style>
 <div class="click-away">
 <slot></slot>
 </div>

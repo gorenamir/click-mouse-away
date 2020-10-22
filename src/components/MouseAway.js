@@ -41,6 +41,11 @@ class MouseAway extends HTMLElement {
 }
 
 MouseAway.template.innerHTML = `
+<style>
+.mouse-away {
+    display: inline-block;
+}
+</style>
 <div class="mouse-away">
 <slot></slot>
 </div>
