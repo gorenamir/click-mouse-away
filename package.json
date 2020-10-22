@@ -1,0 +1,45 @@
+{
+  "name": "click-mouse-away",
+  "version": "1.0.0",
+  "author": "Amir Goren <amir602@gmail.com>",
+  "license": "MIT",
+  "description": "Web components to handle click outside of an element and mouse leaving an element",
+  "main": "dist/index.js",
+  "files": [
+    "src/",
+    "dist/",
+    "package.json",
+    "CHANGELOG.md"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
+    "del-cli": "^3.0.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "build-dev": "webpack",
+    "build": "cross-env NODE_ENV=production webpack",
+    "delete": "del-cli --force ./dist",
+    "release": "npm run delete && npm run build && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorenamir/click-mouse-away.git"
+  },
+  "keywords": [
+    "click",
+    "mouse",
+    "mouseleave",
+    "away",
+    "web components"
+  ],
+  "bugs": {
+    "url": "https://github.com/gorenamir/click-mouse-away/issues"
+  },
+  "homepage": "https://github.com/gorenamir/click-mouse-away#readme"
+}
