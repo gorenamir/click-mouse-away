@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Amir Goren <amir602@gmail.com>",
   "license": "MIT",
-  "description": "Web components to handle click outside of an element and mouse leaving an element",
+  "description": "Web components to handle click-away and mouse-leave events",
   "main": "dist/index.js",
   "files": [
     "src/",
