@@ -19,7 +19,10 @@ class ClickAway extends HTMLElement {
             if (this.#eventHandler) {
                 document.removeEventListener('click', this.#eventHandler);
             }
-            this.#eventHandler = () => { eval(newValue); };
+            this.#eventHandler = () => {
+                const func = new Function(newValue);
+                func.bind(this)();
+            };
             document.addEventListener('click', this.#eventHandler);
         }
     }

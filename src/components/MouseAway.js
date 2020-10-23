@@ -22,7 +22,10 @@ class MouseAway extends HTMLElement {
             if (this.#eventHandler) {
                 this.#mouseAwayRoot.removeEventListener('mouseleave', this.#eventHandler);
             }
-            this.#eventHandler = () => { eval(newValue); };
+            this.#eventHandler = () => {
+                const func = new Function(newValue);
+                func.bind(this)();
+            };
             this.#mouseAwayRoot.addEventListener('mouseleave', this.#eventHandler);
         }
     }
