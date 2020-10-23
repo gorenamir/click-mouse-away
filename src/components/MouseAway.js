@@ -5,14 +5,13 @@ class MouseAway extends HTMLElement {
     static observedAttributes = ['onmouseaway'];
 
     #eventHandler = null;
-    #mouseAwayRoot;
 
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(MouseAway.template.content.cloneNode(true));
-        this.#mouseAwayRoot = this.shadowRoot.querySelector('.mouse-away');
-        this.#mouseAwayRoot.addEventListener('mouseleave', () => {
+        const mouseAwayRoot = this.shadowRoot.querySelector('.mouse-away');
+        mouseAwayRoot.addEventListener('mouseleave', () => {
             this.dispatchEvent(new CustomEvent('mouseaway', { bubbles: false }));
         });
     }
@@ -20,13 +19,13 @@ class MouseAway extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'onmouseaway') {
             if (this.#eventHandler) {
-                this.#mouseAwayRoot.removeEventListener('mouseleave', this.#eventHandler);
+                this.removeEventListener('mouseaway', this.#eventHandler);
             }
             this.#eventHandler = () => {
                 const func = new Function(newValue);
                 func.bind(this)();
             };
-            this.#mouseAwayRoot.addEventListener('mouseleave', this.#eventHandler);
+            this.addEventListener('mouseaway', this.#eventHandler);
         }
     }
 
@@ -35,10 +34,10 @@ class MouseAway extends HTMLElement {
             throw new TypeError('Argument to onmouseaway must be a function');
         }
         if (this.#eventHandler) {
-            this.#mouseAwayRoot.removeEventListener('mouseleave', this.#eventHandler);
+            this.removeEventListener('mouseaway', this.#eventHandler);
         }
         this.#eventHandler = func.bind(this);
-        this.#mouseAwayRoot.addEventListener('mouseleave', this.#eventHandler);
+        this.addEventListener('mouseaway', this.#eventHandler);
     }
 
 }

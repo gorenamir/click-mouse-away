@@ -56,19 +56,17 @@ clickAwayElement.onclickaway = event => {
 mouseAwayElement.onmouseaway = event => {
     // And here
 };
-```
 
-mouse-away also supports traditional event-handling:
+// Alternatively, use traditional event handling:
 
-```javascript
-const mouseAwayElement = document.querySelector('mouse-away');
+clickAwayElement.addEventListener('clickaway', event => {
+    // Event handling here
+});
+
 mouseAwayElement.addEventListener('mouseaway', event => {
-    // Your code goes here
+    // And here
 });
 ```
-
-Although this is unclear why you would want to do this; Just use the native browser mouseleave event, 
-without this package.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

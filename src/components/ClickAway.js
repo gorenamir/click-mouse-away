@@ -12,18 +12,21 @@ class ClickAway extends HTMLElement {
         this.shadowRoot.append(ClickAway.template.content.cloneNode(true));
         const clickAwayRoot = this.shadowRoot.querySelector('.click-away');
         clickAwayRoot.addEventListener('click', e => { e.stopPropagation(); });
+        document.addEventListener('click', () => {
+            this.dispatchEvent(new CustomEvent('clickaway', { bubbles: false }));
+        });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'onclickaway') {
             if (this.#eventHandler) {
-                document.removeEventListener('click', this.#eventHandler);
+                this.removeEventListener('clickaway', this.#eventHandler);
             }
             this.#eventHandler = () => {
                 const func = new Function(newValue);
                 func.bind(this)();
             };
-            document.addEventListener('click', this.#eventHandler);
+            this.addEventListener('clickaway', this.#eventHandler);
         }
     }
 
@@ -32,10 +35,10 @@ class ClickAway extends HTMLElement {
             throw new TypeError('Argument to onclickaway must be a function');
         }
         if (this.#eventHandler) {
-            document.removeEventListener('click', this.#eventHandler);
+            this.removeEventListener('clickaway', this.#eventHandler);
         }
         this.#eventHandler = func.bind(this);
-        document.addEventListener('click', this.#eventHandler);
+        this.addEventListener('clickaway', this.#eventHandler);
     }
 
 }
