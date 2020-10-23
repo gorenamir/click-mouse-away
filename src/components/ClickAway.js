@@ -10,10 +10,10 @@ class ClickAway extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(ClickAway.template.content.cloneNode(true));
-        const clickAwayRoot = this.shadowRoot.querySelector('.click-away');
-        clickAwayRoot.addEventListener('click', e => { e.stopPropagation(); });
-        document.addEventListener('click', () => {
-            this.dispatchEvent(new CustomEvent('clickaway', { bubbles: false }));
+        document.addEventListener('click', e => {
+            if (! e.composedPath().includes(this)) {
+                this.dispatchEvent(new CustomEvent('clickaway', { bubbles: false }));
+            }
         });
     }
 
