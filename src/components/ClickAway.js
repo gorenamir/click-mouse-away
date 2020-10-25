@@ -6,15 +6,24 @@ class ClickAway extends HTMLElement {
 
     #eventHandler = null;
 
+    #documentEventHandler = e => {
+        if (! e.composedPath().includes(this)) {
+            this.dispatchEvent(new CustomEvent('clickaway', { bubbles: false }));
+        }
+    };
+
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(ClickAway.template.content.cloneNode(true));
-        document.addEventListener('click', e => {
-            if (! e.composedPath().includes(this)) {
-                this.dispatchEvent(new CustomEvent('clickaway', { bubbles: false }));
-            }
-        });
+    }
+
+    connectedCallback() {
+        document.addEventListener('click', this.#documentEventHandler);
+    }
+
+    disconnectedCallback() {
+        document.removeEventListener('click', this.#documentEventHandler);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
